@@ -1,0 +1,43 @@
+Surrogate Data Source Transfer (SDST): An
+Efficient Transfer Learning Approach for Time
+Series Forecasting
+
+McGill University, Montreal, QC, H3A 0G4, Canada
+Abstract—Time series prediction plays a crucial role in opti-
+mizing the operation of communication networks. Applications
+of time series prediction include traffic prediction, channel state
+prediction, handover prediction, etc. However, training high-
+quality models for these tasks requires large volumes of historical
+data. This requirement may not be available in some scenarios.
+In this case, instance-based Transfer Learning (TL) comes as a
+prominent solution for this problem. However, a few concerns
+could be raised such as: 1) the time and bandwidth resources
+consumed in the transfer, 2) it will be hard to specify the amount
+of data to be transferred, and 3) in case of transferring a
+subset of the data, which subset is better to transfer. To address
+these challenges, we propose a novel approach for TL, which
+is similar to, but different than, instance-based TL based on
+generative models. We coined the new approach as Surrogate
+Data Source Transfer (SDST), in which a generative model is
+trained on the source task. We then transfer the model to the
+target task (with limited historical data). Extensive experiments
+confirm the superior performance of the proposed approach
+in terms of prediction accuracy and consumed resources (time
+and bandwidth). Our TL approach reduced the mean absolute
+percentage error (MAPE) by a margin that hits 81% in some
+datasets. For the source code and data, we refer to the repository
+https://github.com/MoeR3za/Korsahy TGAN.
+Index Terms—Transfer learning, time series prediction, gener-
+ative AI (GenAI)
+Data Source Transfer (SDST), in which a generative model is
+trained on the source task. We then transfer the model to the
+target task (with limited historical data). Extensive experiments
+confirm the superior performance of the proposed approach
+in terms of prediction accuracy and consumed resources (time
+and bandwidth). Our TL approach reduced the mean absolute
+percentage error (MAPE) by a margin that hits 81% in some
+datasets. For the source code and data, we refer to the repository
+https://github.com/MoeR3za/Korsahy TGAN.
+Index Terms—Transfer learning, time series prediction, gener-
+ative AI (GenAI)
+

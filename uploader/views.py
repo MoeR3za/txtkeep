@@ -4,6 +4,7 @@ from rest_framework.exceptions import MethodNotAllowed
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny
+from rest_framework.generics import get_object_or_404
 from .models import TxtFile
 from .serializers import TxtFileSerializer, TxtFileDetailSerializer, TxtFileCreateSerializer
 # Create your views here.
@@ -66,7 +67,7 @@ class FileDetailView(APIView):
 
     def get_queryset(self, *args, **kwargs):
         uuid = kwargs.get('uuid')
-        file = TxtFile.objects.filter(uuid=uuid, archived=False).first()
+        file = get_object_or_404(TxtFile, uuid=uuid)
         return file
 
     def get(self, request, *args, **kwargs):
@@ -95,7 +96,7 @@ class FileDownloadView(APIView):
 
     def get_queryset(self, *args, **kwargs):
         uuid = kwargs.get('uuid')
-        file = TxtFile.objects.filter(uuid=uuid, archived=False).first()
+        file = get_object_or_404(TxtFile, uuid=uuid)
         return file
 
     def get(self, request, *args, **kwargs):
