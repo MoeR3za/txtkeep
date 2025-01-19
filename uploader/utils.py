@@ -7,6 +7,6 @@ def download_file_from_s3(file_path, save_path, bucket_name='txtkeep', ):
         
         # Download the file
         s3.download_file(bucket_name, file_path, save_path)
-        print(f"File downloaded successfully: {save_path}")
+        
     except Exception as e:
         print(f"Error downloading file from S3: {e}")

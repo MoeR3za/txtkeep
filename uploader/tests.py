@@ -1,8 +1,8 @@
 import os
-from django.contrib.auth import get_user_model
-from rest_framework.test import APITestCase, APIClient
+from rest_framework.test import APITestCase
 from rest_framework import status
 from rest_framework_simplejwt.tokens import  AccessToken
+from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from uploader.models import TxtFile
@@ -35,7 +35,7 @@ def generate_test_file_data(file_name: str, username: str) -> dict:
 
 class MyFileViewSetTest(APITestCase):
     def setUp(self):
-        self.email = 'test@example.com'
+        self.email = 'john_doe@txtkeep.com'
         self.username = 'username'
         self.password = 'pa$$word'
         self.first_name = "John"
@@ -53,7 +53,7 @@ class MyFileViewSetTest(APITestCase):
             HTTP_AUTHORIZATION='Bearer ' + self.access_token
         )
         
-    def test_uploading_new_file(self):
+    def test_uploading_ok_file(self):
         url = '/api/files/'        
         file_name = "file_ok.txt"
         data = upload_test_file(file_name)
@@ -88,9 +88,20 @@ class MyFileViewSetTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(resp_content['invalid_files'][0]['file_name'][:len(file_name)], file_name) 
 
-    def test_uploading_nontext_file(self):
+    def test_uploading_noext_file(self):
         url = '/api/files/'
         file_name = "file_noext"
+        data = upload_test_file(file_name)
+
+        response = self.client.post(url, data=data)
+        resp_content = response.json()
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(resp_content['invalid_files'][0]['file_name'][:len(file_name)], file_name) 
+
+    def test_uploading_nontext_file(self):
+        url = '/api/files/'
+        file_name = "file_nontext.sh"
         data = upload_test_file(file_name)
 
         response = self.client.post(url, data=data)
@@ -110,14 +121,14 @@ class MyFileViewSetTest(APITestCase):
     def test_get_file(self):
         file_name = "file_ok.txt"
         test_file_data = generate_test_file_data(file_name, self.user.username)
-        creation_data = {
+        file_obj_data = {
             'user': self.user,
             **test_file_data,
             'file_path': f"uploads/{self.user.username}/{file_name}"
         }
 
         file = TxtFile.objects.create(
-            **creation_data
+            **file_obj_data
         )
 
         url = f'/api/files/{file.uuid}/'
@@ -125,7 +136,8 @@ class MyFileViewSetTest(APITestCase):
         resp_content = response.json()
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(resp_content['file_name'], creation_data['file_name'])
+        self.assertEqual(resp_content['file_name'], file.file_name)
+        self.assertEqual(resp_content['uuid'], file.uuid)
 
 
     def test_delete_myfile(self):
@@ -144,3 +156,23 @@ class MyFileViewSetTest(APITestCase):
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         
+
+    def test_download_file(self):
+        file_name = "file_ok.txt"
+        test_file_data = generate_test_file_data(file_name, self.user.username)
+        file_obj_data = {
+            'user': self.user,
+            **test_file_data,
+            'file_path': f"uploads/{self.user.username}/{file_name}"
+        }
+
+        file = TxtFile.objects.create(
+            **file_obj_data
+        )
+
+        url = f'/api/files/{file.uuid}/download/'
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response['Content-Type'], "text/plain")
+

@@ -108,9 +108,8 @@ class FileDownloadView(APIView):
                 
                 save_path = os.path.join(temp_dir, file_obj.file_name)
                 download_file_from_s3(obj_key, save_path)
-                loc = os.path.join(temp_dir, file_obj.file_name)
 
-                with open(loc, 'rb') as f:
+                with open(save_path, 'rb') as f:
                     response = HttpResponse(FileWrapper(f), content_type='text/plain')
                     response['Content-Disposition'] = f'attachment; filename="{file_obj.file_name}"'
                     
