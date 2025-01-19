@@ -191,8 +191,13 @@ REST_AUTH = {
     
     "JWT_AUTH_RETURN_EXPIRATION": True,
 
-    'JWT_ACCESS_TOKEN_LIFETIME': timezone.timedelta(hours=1),
-    'JWT_REFRESH_TOKEN_LIFETIME': timezone.timedelta(days=1),
+    'JWT_ACCESS_TOKEN_LIFETIME': timezone.timedelta(days=1),
+    'JWT_REFRESH_TOKEN_LIFETIME': timezone.timedelta(weeks=1),
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timezone.timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timezone.timedelta(weeks=1),
 }
 
 
