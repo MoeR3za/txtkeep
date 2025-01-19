@@ -14,18 +14,18 @@ jobs:
       statuses: write
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
 
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_S3_REGION_NAME }}
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_S3_REGION_NAME }}
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -50,11 +50,11 @@ jobs:
           docker tag txtkeep:latest $IMAGE_NAME
           docker push $IMAGE_NAME
 
-    - name: Deploy to Elastic Beanstalk
-      env:
-        EB_ENV_NAME: txtkeep-env-prod
-      run: |
-        pip install awsebcli
-        eb use $EB_ENV_NAME
-        eb deploy
+      - name: Deploy to Elastic Beanstalk
+        env:
+          EB_ENV_NAME: txtkeep-env-prod
+        run: |
+          pip install awsebcli
+          eb use $EB_ENV_NAME
+          eb deploy
 
