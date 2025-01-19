@@ -19,4 +19,7 @@ RUN python manage.py migrate
 
 ## FOR PROD
 EXPOSE 8000
-CMD ["gunicorn", "txtkeep.wsgi:application", "--bind", "0.0.0.0:8000"]
+
+ENTRYPOINT [ "entrypoint.sh" ]
+
+# CMD ["gunicorn", "txtkeep.wsgi:application", "--bind", "0.0.0.0:8000"]
