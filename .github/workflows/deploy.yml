@@ -56,7 +56,7 @@ jobs:
 
       - name: Deploy to Elastic Beanstalk
         env:
-          EB_ENV_NAME: txtkeep-env-prod
+          EB_ENV_NAME: txtkeep-production
         run: |
           pip install awsebcli
           eb use $EB_ENV_NAME

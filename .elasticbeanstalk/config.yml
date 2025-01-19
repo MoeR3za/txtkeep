@@ -1,13 +1,14 @@
 branch-defaults:
   main:
-    environment: txtkeep-env-prod
+    environment: null
 environment-defaults:
-  txtkeep-env-prod:
+  txtkeep-production:
     branch: null
     repository: null
 global:
-  application_name: txtkeep
-  default_ec2_keyname: null
+  application_name: txt-keep
+  branch: null
+  default_ec2_keyname: ec2kp
   default_platform: Docker running on 64bit Amazon Linux 2023
   default_region: eu-north-1
   include_git_submodules: true
@@ -15,5 +16,6 @@ global:
   platform_name: null
   platform_version: null
   profile: null
+  repository: null
   sc: git
   workspace_type: Application
