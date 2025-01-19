@@ -12,6 +12,10 @@ COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
+
+# Make the entrypoint script executable
+RUN chmod +x /app/entrypoint.sh
+
 # RUN python manage.py collectstatic --noinput
 
 # # Pre deployment check
