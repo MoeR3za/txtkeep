@@ -40,6 +40,10 @@ jobs:
         with:
           compose-file: "./docker-compose.yml"
 
+      - name: Run Containerized Tests
+        run: |
+          docker-compose exec -T python manage.py test
+
       - name: Push image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
