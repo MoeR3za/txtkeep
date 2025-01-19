@@ -42,8 +42,10 @@ jobs:
 
       - name: Run Containerized Tests
         run: |
-          docker-compose exec -T python manage.py test
-
+          docker-compose up -d
+          docker-compose exec app python manage.py test
+          docker-compose down
+          
       - name: Push image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
