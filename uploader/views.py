@@ -36,6 +36,11 @@ class FilesView(APIView):
 
     def get_queryset(self, *args, **kwargs):
         files = TxtFile.objects.filter(user=self.request.user).order_by("created_at")
+        if "q" in self.request.GET:
+            q = self.request.GET.get('q')
+            files = files.filter(file_content__icontains=q)
+            files = files.filter(file_name__icontains=q)
+
         return files
 
     def get(self, request, *args, **kwargs):

@@ -17,6 +17,7 @@ class TxtFileSerializer(serializers.ModelSerializer):
             'uuid',
             'file_name',
             'file_size',
+            'file_content',
             'created_at']
 
 class TxtFileDetailSerializer(serializers.ModelSerializer):
