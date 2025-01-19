@@ -42,9 +42,9 @@ jobs:
 
       - name: Run Containerized Tests
         run: |
-          docker-compose up -d
-          docker-compose exec app python manage.py test
-          docker-compose down
+          docker compose up -d
+          docker compose exec app python manage.py test
+          docker compose down
           
       - name: Push image to Amazon ECR
         env:
