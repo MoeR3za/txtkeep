@@ -111,7 +111,7 @@ class TxtFileCreateSerializer(serializers.ModelSerializer):
                 f_instance = TxtFile()
                 f_instance.file_size = file_data["file_size"]
                 f_instance.file_content = file_data["file_content"]
-
+                f_instance.user = user
                 # Check and save file name
                 file_name = check_file_name(file_data["file_name"], user)
                 f_instance.file_name = file_name
