@@ -11,6 +11,10 @@ python manage.py migrate
 echo "Collecting static files..."
 python manage.py collectstatic --noinput
 
+# Collect static files
+echo "Creating user..."
+python manage.py create_user
+
 # Execute the command passed to the container
 echo "Starting the application..."
 gunicorn txtkeep.wsgi:application --bind 0.0.0.0:8000
