@@ -5,7 +5,6 @@ services:
       dockerfile: Dockerfile
     container_name: django_app
     image: txtkeep:latest
-    command: gunicorn txtkeep.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - .:/app
       - ./static:/app/static  # Mount static directory
