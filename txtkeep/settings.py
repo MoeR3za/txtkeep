@@ -66,7 +66,6 @@ AWS_S3_FILE_OVERWRITE = False  # Prevent overwriting files with the same name
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -157,7 +156,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Directory for collected static files
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 
 # Default primary key field type
@@ -213,7 +212,7 @@ STORAGES = {
         # 'AWS_S3_SIGNATURE_VERSION': AWS_S3_SIGNATURE_VERSION,
     },
     'staticfiles': {
-        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+        'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
     },
     'media': {
         'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
